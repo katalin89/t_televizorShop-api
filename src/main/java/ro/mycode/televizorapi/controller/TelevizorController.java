@@ -1,10 +1,7 @@
 package ro.mycode.televizorapi.controller;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.mycode.televizorapi.model.Televizor;
 import ro.mycode.televizorapi.repository.TelevizorRepo;
 
@@ -34,6 +31,15 @@ public class TelevizorController {
         return  televizorRepo.getAllTelevizorById(marca);
 
     }
+
+    @PostMapping("api/v1/add")
+    public  Televizor addTelevizor(@RequestBody Televizor televizor){
+        this.televizorRepo.save(televizor);
+
+        return televizor;
+    }
+
+
 
 }
 
