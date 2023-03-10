@@ -34,6 +34,7 @@ public class TelevizorController {
     public List<Televizor> getAllTelevizoareByMarca(@PathVariable String marca) {
         return televizorRepo.getAllTelevizorByMarca(marca);
 
+
     }
 
     @PostMapping("api/v1/add")
