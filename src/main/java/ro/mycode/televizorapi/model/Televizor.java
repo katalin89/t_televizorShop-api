@@ -1,12 +1,12 @@
 package ro.mycode.televizorapi.model;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
-import ro.mycode.televizorapi.dtos.TelevizorDTO;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
