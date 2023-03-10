@@ -1,47 +1,60 @@
 package ro.mycode.televizorapi.model;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+//text+=id+","+marca+","+model+","+pret;
+
 @Data
-@Entity
-@Table(name="televizoare")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Televizor  implements Comparable<Televizor>{
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Id
-    private long id;
-    private String marca;
-    private String model;
-    private int pret;
+@Entity(name= "Televizor")
+@Table(name="televizoare")
 
+public class Televizor  implements Comparable<Televizor>{
+
+    @Id
+    @SequenceGenerator(name="televizor_sequence",sequenceName = "televizor_sequence",allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "televizor_sequence")
+    private Long id;
+
+    @Column(name="marca",nullable = false)
+    @Size(min=2,message="Marca trebuie sa fie cel putin din doua litere")
+    private String marca;
+
+    @Column(name="model",nullable=false)
+    @Size(max=20,message = "Nu poate fi ma lung decat 20 de caractere")
+    private String model;
+
+    @Column(name="pret",nullable = false)
+    @Min(value=5000,message = "Pretul minim este de 5000")
+    private  int pret;
 
 
     @Override
     public int compareTo(Televizor o) {
-        return 0;
-    }
 
-    @Override
-    public String toString(){
-        String text="";
-        text+=id+","+marca+","+model+","+pret;
-        return  text;
-    }
-
-    public int compare(Object o){
-        Televizor televizor=(Televizor) o;
-        if(this.pret>televizor.pret){
+        if(this.model.compareTo(o.model)>0){
             return 1;
-        }else if(this.pret<televizor.pret){
-            return  0;
         }
-        return -1;
+        if(this.model.compareTo(o.model)<0){
+            return -1;
+        }else
+
+            return 0;
+    }
+    @Override
+    public  boolean equals(Object o){
+        Televizor televizor=(Televizor) o;
+        return  this.model.equals(televizor.model);
     }
 }
 
