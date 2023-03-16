@@ -1,10 +1,12 @@
 package ro.mycode.televizorapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.mycode.televizorapi.model.Televizor;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -15,6 +17,44 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
     @Query("select t from Televizor t where t.marca=?1")
 
     List<Televizor>getAllTelevizorById(String marca);
+
+
+    @Query("select t from Televizor t where t.marca=?1")
+
+    List<Televizor>getAllTelevizorByMarca(String marca);
+
+
+    Televizor findTelevizorByModel(String model);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Televizor t where t.model like ?1")
+    void deleteTelevizorByModel(String model);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Televizor t where t.marca like ?1")
+    void deleteTelevizorByMarca(String marca);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Televizor t where t.id = ?1")
+    void deleteTelevizorById(String id);
+
+    @Transactional
+    @Modifying
+    @Query("select distinct t from Televizor  t order by  t.model")
+    List<Televizor>sortByModel();
+
+    @Transactional
+    @Modifying
+    @Query("select distinct t from Televizor  t order by  t.marca")
+    List<Televizor>sortByMarca();
+
+    @Transactional
+    @Modifying
+    @Query("select distinct t from Televizor  t order by  t.pret")
+    List<Televizor>sortByPret();
 }
 
 

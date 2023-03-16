@@ -1,10 +1,13 @@
 package ro.mycode.televizorapi.controller;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 import ro.mycode.televizorapi.model.Televizor;
 import ro.mycode.televizorapi.repository.TelevizorRepo;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -30,7 +33,10 @@ public class TelevizorController {
     public  List<Televizor> getAllTelevizoareByMarca(@PathVariable String marca){
         return  televizorRepo.getAllTelevizorById(marca);
 
+
     }
+
+
 
     @PostMapping("api/v1/add")
     public  Televizor addTelevizor(@RequestBody Televizor televizor){
