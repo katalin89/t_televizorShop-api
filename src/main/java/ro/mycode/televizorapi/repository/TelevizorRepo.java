@@ -55,6 +55,12 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
     @Modifying
     @Query("select distinct t from Televizor  t order by  t.pret")
     List<Televizor>sortByPret();
+
+    @Transactional
+    @Modifying
+    @Query("select t from Televizor t where t.marca=?1  and t.model=?2")
+    List<Televizor>findTvWith(String marca,String model);
+//    @PostMapping("/add")
 }
 
 

@@ -11,8 +11,8 @@
 	<groupId>ro.mycode</groupId>
 	<artifactId>autovit-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>autovit-api</name>
-	<description>autovit api</description>
+	<name>televizorShop-api</name>
+	<description>televizorShop api</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

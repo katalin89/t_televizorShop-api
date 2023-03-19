@@ -1,6 +1,8 @@
 package ro.mycode.televizorapi.rest;
 
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +10,7 @@ import ro.mycode.televizorapi.dtos.TelevizorDTO;
 import ro.mycode.televizorapi.model.Televizor;
 import ro.mycode.televizorapi.service.TvService;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -39,5 +42,18 @@ public class TelevizorResource {
     public ResponseEntity update(@Valid @RequestBody TelevizorDTO televizor, String model) {
         this.tvService.update(televizor, model);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+
+//    @PostMapping("/add")
+//    public ResponseEntity addTv(@RequestBody Televizor televizor) {
+//        tvService.addTelevizor(televizor);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//
+//    }
+    @PostMapping("/add")
+    public  ResponseEntity addTv(@RequestBody Televizor televizor){
+        tvService.addTelevizor(televizor);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
