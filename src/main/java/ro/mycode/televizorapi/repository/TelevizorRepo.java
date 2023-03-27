@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
+
+    @Query("select distinct t from Televizor t" )
+    List<Televizor>getAllTelevizoare();
     @Query("select  distinct p.marca from Televizor p")
     List<String>getAllMarci();
 
@@ -26,6 +29,8 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
 
     Televizor findTelevizorByModel(String model);
 
+    Televizor findById(int id);
+
     @Transactional
     @Modifying
     @Query("delete from Televizor t where t.model like ?1")
@@ -39,7 +44,7 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
     @Transactional
     @Modifying
     @Query("delete from Televizor t where t.id = ?1")
-    void deleteTelevizorById(String id);
+    void deleteTelevizorById(int id);
 
     @Transactional
     @Modifying
@@ -60,6 +65,11 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
     @Modifying
     @Query("select t from Televizor t where t.marca=?1  and t.model=?2")
     List<Televizor>findTvWith(String marca,String model);
+
+    Televizor findTelevizorById(Long id);
+
+    //Televizor findTelevizorByModel(String model);
+
 //    @PostMapping("/add")
 }
 

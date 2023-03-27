@@ -13,6 +13,7 @@ import ro.mycode.televizorapi.repository.TelevizorRepo;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TvService {
@@ -41,6 +42,16 @@ public class TvService {
 
     }
 
+    public void deleteTelevizorById(Long id) throws TvNotFoundException {
+        Optional<Televizor> byId = televizorRepo.findById((id));
+        if (byId.isPresent()) {
+            televizorRepo.delete(byId.get());
+        } else {
+            throw new TvNotFoundException();
+        }
+
+    }
+
     /**/
     @Transactional
     @Modifying
@@ -54,6 +65,37 @@ public class TvService {
         this.televizorRepo.saveAndFlush(televizor);
 
     }
+
+    @Transactional
+    @Modifying
+    public  void sortByMarca(String marca)throws ExceptieTvDBEmpty{
+
+        List<Televizor>televizoare=televizorRepo.getAllTelevizoare();
+        if (televizoare.size()>0){
+            televizoare=televizorRepo.sortByMarca();
+        }else throw new ExceptieTvDBEmpty();
+
+    }
+
+    @Transactional
+    @Modifying
+    public  void sortByModel(String model) throws ExceptieTvDBEmpty{
+        List<Televizor> televizoare=televizorRepo.getAllTelevizoare();
+        if(televizoare.size()>0){
+            televizoare=televizorRepo.sortByModel();
+        }
+    }
+
+    @Transactional
+    @Modifying
+    public  void sortByPret(String pret) throws ExceptieTvDBEmpty{
+        List<Televizor> televizoare=televizorRepo.getAllTelevizoare();
+        if(televizoare.size()>0){
+            televizoare=televizorRepo.sortByPret();
+        }
+    }
+
+
 
     @Transactional
     @Modifying

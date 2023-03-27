@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.mycode.televizorapi.dtos.TelevizorDTO;
 import ro.mycode.televizorapi.model.Televizor;
+import ro.mycode.televizorapi.repository.TelevizorRepo;
 import ro.mycode.televizorapi.service.TvService;
 
 import javax.transaction.Transactional;
@@ -16,13 +17,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/televizor")
-
+@CrossOrigin
 public class TelevizorResource {
 
     private TvService tvService;
+    private final TelevizorRepo televizorRepo;
 
-    public TelevizorResource(TvService tvService) {
+    public TelevizorResource(TvService tvService,
+                             TelevizorRepo televizorRepo) {
         this.tvService = tvService;
+        this.televizorRepo = televizorRepo;
     }
 
     @GetMapping("/all")
@@ -32,6 +36,11 @@ public class TelevizorResource {
 
     }
 
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity deleteById(@PathVariable Long id) {
+        this.tvService.deleteTelevizorById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
     @DeleteMapping("/deleteTelevizorByModel/{model}")
     ResponseEntity deleteByModel(@PathVariable String model) {
         this.tvService.deleteTelevizorByModel(model);
@@ -56,4 +65,30 @@ public class TelevizorResource {
         tvService.addTelevizor(televizor);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping ("/sortByMarca")
+    public ResponseEntity<List> sortByMarca(){
+        System.out.println("aici");
+        List<Televizor> televeziorList =  televizorRepo.sortByMarca();
+        return  new ResponseEntity<>(televeziorList,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/sortByModel")
+    public  ResponseEntity<List>sortByModel(){
+        List<Televizor> televizorList=televizorRepo.sortByMarca();
+        return  new ResponseEntity<>(televizorList,HttpStatus.OK);
+    }
+
+    @GetMapping("/sortByPret")
+    public ResponseEntity<List>sortByPret(){
+        List<Televizor> televizorList=televizorRepo.sortByPret();
+        return new ResponseEntity<>(televizorList,HttpStatus.OK);
+    }
 }
+
+/* @GetMapping("api/v1/sortByPrice")
+    public List<Masina> sortByPrice(){
+        return  masinaRepo.sortByPrice();
+
+    }*/
