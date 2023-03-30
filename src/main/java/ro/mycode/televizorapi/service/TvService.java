@@ -42,14 +42,8 @@ public class TvService {
 
     }
 
-    public void deleteTelevizorById(Long id) throws TvNotFoundException {
-        Optional<Televizor> byId = televizorRepo.findById((id));
-        if (byId.isPresent()) {
-            televizorRepo.delete(byId.get());
-        } else {
-            throw new TvNotFoundException();
-        }
-
+    public void deleteTelevizorById(long id) {
+        televizorRepo.deleteTelevizorById(id);
     }
 
     /**/
@@ -59,7 +53,7 @@ public class TvService {
 
         List<Televizor> tvWith = televizorRepo.findTvWith(televizor.getMarca(), televizor.getModel());
 
-        if (tvWith.size() > 0) {
+        if (tvWith != null) {
             throw new ExistingTv();
         }
         this.televizorRepo.saveAndFlush(televizor);
@@ -68,33 +62,23 @@ public class TvService {
 
     @Transactional
     @Modifying
-    public  void sortByMarca(String marca)throws ExceptieTvDBEmpty{
+    public List<Televizor> sortByMarca(String marca) {
 
-        List<Televizor>televizoare=televizorRepo.getAllTelevizoare();
-        if (televizoare.size()>0){
-            televizoare=televizorRepo.sortByMarca();
-        }else throw new ExceptieTvDBEmpty();
-
+        return televizorRepo.sortByMarca();
     }
 
     @Transactional
     @Modifying
-    public  void sortByModel(String model) throws ExceptieTvDBEmpty{
-        List<Televizor> televizoare=televizorRepo.getAllTelevizoare();
-        if(televizoare.size()>0){
-            televizoare=televizorRepo.sortByModel();
-        }
+    public List<Televizor> sortByModel() {
+        return televizorRepo.sortByModel();
     }
+
 
     @Transactional
     @Modifying
-    public  void sortByPret(String pret) throws ExceptieTvDBEmpty{
-        List<Televizor> televizoare=televizorRepo.getAllTelevizoare();
-        if(televizoare.size()>0){
-            televizoare=televizorRepo.sortByPret();
-        }
+   public List<Televizor>sortByPret(){
+        return televizorRepo.sortByPret();
     }
-
 
 
     @Transactional

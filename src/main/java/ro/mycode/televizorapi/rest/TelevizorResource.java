@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/televizor")
+@RequestMapping("/api/v1/tv")
 @CrossOrigin
 public class TelevizorResource {
 
@@ -37,7 +37,7 @@ public class TelevizorResource {
     }
 
     @DeleteMapping("/delete/{id}")
-    ResponseEntity deleteById(@PathVariable Long id) {
+    ResponseEntity deleteById(@PathVariable long id) {
         this.tvService.deleteTelevizorById(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

@@ -29,7 +29,7 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
 
     Televizor findTelevizorByModel(String model);
 
-    Televizor findById(int id);
+    Televizor findByMarca(String marca);
 
     @Transactional
     @Modifying
@@ -44,7 +44,7 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
     @Transactional
     @Modifying
     @Query("delete from Televizor t where t.id = ?1")
-    void deleteTelevizorById(int id);
+    void deleteTelevizorById(long id);
 
     @Transactional
     @Modifying
@@ -66,7 +66,7 @@ public interface TelevizorRepo extends JpaRepository<Televizor,Long> {
     @Query("select t from Televizor t where t.marca=?1  and t.model=?2")
     List<Televizor>findTvWith(String marca,String model);
 
-    Televizor findTelevizorById(Long id);
+    Televizor findTelevizorById(long id);
 
     //Televizor findTelevizorByModel(String model);
 

@@ -14,10 +14,11 @@ import javax.validation.constraints.Size;
 //text+=id+","+marca+","+model+","+pret;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name= "Televizor")
 @Table(name="televizoare")
+@AllArgsConstructor
+@NoArgsConstructor
+
 
 public class Televizor  implements Comparable<Televizor>{
 
@@ -39,6 +40,12 @@ public class Televizor  implements Comparable<Televizor>{
     private  int pret;
 
 
+    @Override
+    public  String toString(){
+        String text="";
+        text+=id+","+marca+","+model+","+pret;
+        return  text;
+    }
     @Override
     public int compareTo(Televizor o) {
 
