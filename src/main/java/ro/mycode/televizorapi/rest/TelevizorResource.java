@@ -23,9 +23,11 @@ public class TelevizorResource {
     private TvService tvService;
     private final TelevizorRepo televizorRepo;
 
+
     public TelevizorResource(TvService tvService,
                              TelevizorRepo televizorRepo) {
         this.tvService = tvService;
+
         this.televizorRepo = televizorRepo;
     }
 
@@ -87,8 +89,4 @@ public class TelevizorResource {
     }
 }
 
-/* @GetMapping("api/v1/sortByPrice")
-    public List<Masina> sortByPrice(){
-        return  masinaRepo.sortByPrice();
 
-    }*/

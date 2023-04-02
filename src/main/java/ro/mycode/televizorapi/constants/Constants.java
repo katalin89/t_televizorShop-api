@@ -5,5 +5,5 @@ public class Constants {
 
     public  static  final String TV_NOT_FOUND_EXCEPTION="Tv not found exception";
 
-    public  static  final String TV_DUPLICATION="Tlevizorul deja exista";
+    public  static  final String TV_DUPLICATION="Televizorul deja exista";
 }

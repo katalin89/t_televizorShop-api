@@ -53,7 +53,7 @@ public class TvService {
 
         List<Televizor> tvWith = televizorRepo.findTvWith(televizor.getMarca(), televizor.getModel());
 
-        if (tvWith != null) {
+        if (tvWith.size()>0) {
             throw new ExistingTv();
         }
         this.televizorRepo.saveAndFlush(televizor);
